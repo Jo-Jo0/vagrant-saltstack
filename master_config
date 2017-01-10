@@ -1,0 +1,13 @@
+file_roots:
+  base:
+    - /srv/salt/states
+
+pillar_roots:
+  base:
+    - /srv/salt/pillar
+
+worker_threads: 10
+
+timeout: 60
+
+renderer: jinja | yaml | gpg
