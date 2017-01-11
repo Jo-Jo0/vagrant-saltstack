@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     master_config.vm.host_name = 'master.local'
     master_config.vm.network "private_network", ip: "192.168.50.10"
     master_config.vm.synced_folder "states/", "/srv/salt/states/"
-    master_config.vm.synced_folder "pillar/", "/srv/salt/pillar/"
+    master_config.vm.synced_folder "./", "/srv/salt/pillar/"
 
     master_config.vm.provision :salt do |salt|
       salt.master_config = "master_config"
@@ -30,11 +30,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       salt.no_minion = true
       salt.verbose = true
       salt.colorize = true
-      salt.bootstrap_options = "-P -c /tmp"
+#      salt.bootstrap_options = "-P -c /tmp"
     end
   end
 
-  config.vm.define :voyager do |minion_config|
+  config.vm.define :minion1 do |minion_config|
     minion_config.vm.box = "debian/jessie64"
     minion_config.vm.host_name = 'minion1.local'
     minion_config.vm.network "private_network", ip: "192.168.50.11"
@@ -50,7 +50,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
-  config.vm.define :philae do |minion_config|
+  config.vm.define :minion2 do |minion_config|
     minion_config.vm.box = "debian/jessie64"
     minion_config.vm.host_name = 'minion2.local'
     minion_config.vm.network "private_network", ip: "192.168.50.12"
